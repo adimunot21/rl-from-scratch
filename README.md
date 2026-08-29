@@ -86,6 +86,25 @@ All four deep RL algorithms trained on CartPole and compared side-by-side: train
 | A2C | 241.9 | ± 88.7 | 392 | Oscillating |
 | PPO | 224.3 | ± 4.9 | 237 | Most consistent (18× less variance than A2C) |
 
+## Trained Weights
+
+Trained agents for the four deep RL algorithms are attached to the
+[`checkpoints-v1`](https://github.com/adimunot21/rl-from-scratch/releases/tag/checkpoints-v1)
+release — 433 KB total, all trained on `CartPole-v1`.
+
+| File | Agent | Contents |
+|---|---|---|
+| `dqn_cartpole.pt` | DQN | `q_net_state`, `target_net_state`, `epsilon` (0.01) |
+| `reinforce_cartpole.pt` | REINFORCE | policy `state_dict` (128-128-2 MLP) |
+| `a2c_cartpole.pt` | A2C | separate `actor` and `critic` `state_dict`s |
+| `ppo_cartpole.pt` | PPO | shared-trunk `state_dict` with `actor` and `critic` heads |
+
+```python
+import torch
+ck = torch.load("dqn_cartpole.pt", map_location="cpu")
+q_net.load_state_dict(ck["q_net_state"])
+```
+
 ## Project Structure
 
 ```
